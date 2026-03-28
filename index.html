@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveland - Your Journey Starts Here</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+        </header>
+    <div class="header-wrapper">
+    <header class="header-pill">
+        <div class="logo">Trevland</div>
+        <div id="main-user-btn">
+    <span id="theme-toggle" style="cursor: pointer; font-size: 20px;">🌙</span>
+</div>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#blog-section">Blog</a></li>
+                <li><a href="#footer">About</a></li>
+                <li><a href="#footer">Contact</a></li>
+                <li class="nav-user-item">
+                    <a id="main-user-btn" onclick="gatekeeper(event)">
+                        <span id="user-name-label">Sign In</span>
+                        <div class="user-avatar-mini">👤</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <a href="booking.html" class="btn-top">Booking now</a>
+    </header>
+</div>
+
+<style>
+.header-wrapper {
+    position: fixed;
+    top: 20px; 
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    display: flex;
+    justify-content: center; 
+    pointer-events: none; 
+}
+
+.header-pill {
+    pointer-events: auto; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%; 
+    max-width: 1200px;
+    padding: 10px 30px;
+    background: rgba(255, 255, 255, 0.8); 
+    backdrop-filter: blur(15px); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header-pill nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.header-pill nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.header-pill nav ul li a:hover {
+    color: #e15d56;
+}
+
+#main-user-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(225, 93, 86, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.user-avatar-mini {
+    background: #e15d56;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+#home {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;  /* Контент слева */
+    position: relative;
+    background: url('img/nebo.svg') center/cover no-repeat;
+    padding-top: 120px;
+    color: #fff;  /* Белый текст */
+}
+
+#home::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35); /* затемнение */
+    z-index: 0;
+}
+
+#home > * {
+    position: relative;
+    z-index: 1;
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;    /* Возвращаем контейнер в центр экрана */
+    padding: 0 20px;   /* Безопасные отступы от краев на мобилках */
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content {
+    max-width: 600px;
+    text-align: left;
+    margin: 0;
+    /* --- ДОБАВЬ ВОТ ЭТО --- */
+    padding-left: 40px; /* Число можно менять: больше px — дальше от края */
+}
+
+.hero-content h1,
+.hero-content p {
+    color: #fff;  /* Чтобы текст был белым */
+}
+
+#home .container {
+    margin-left: 260px;  
+    margin-right: auto; 
+}
+
+/* Когда включен ночной режим */
+body.dark-mode {
+    background-color: #121212; /* Глубокий темный цвет фона */
+    color: #ffffff;            /* Весь текст на странице становится белым */
+}
+ 
+/* Если у тебя есть блоки с явно заданным белым фоном (например, карточки или секции) */
+body.dark-mode section, 
+body.dark-mode .container,
+body.dark-mode div:not(.header-pill) { 
+    /* Перекрашиваем блоки, но аккуратно, чтобы не испортить шапку */
+    background-color: transparent; 
+}
+
+/* Чтобы переходы были плавными и не били по глазам */
+body {
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* Светлая тема (по умолчанию) */
+.special-offers .explore-more {
+    color: #000;
+}
+
+.btn-details {
+    color: #000; /* Днем черные */
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/* Кнопки в темном режиме */
+body.dark-mode .btn-details {
+    color: #fff !important; /* Ночью белые */
+}
+
+/* Заголовки карточек тоже должны стать белыми */
+body.dark-mode .offer-info h3 {
+    color: #fff !important;
+}
+body.dark-mode .progress-bar {
+    background: rgba(255, 255, 255, 0.1) !important; /* Серый фон дорожки */
+}
+
+body.dark-mode .progress-fill {
+    background: #e15d56 !important; /* Оранжевая заливка */
+    box-shadow: 0 0 10px #e15d56;    /* Добавим свечение, чтобы горела */
+}
+
+/* Стрелочки переключения */
+body.dark-mode .prev-btn, 
+body.dark-mode .next-btn {
+    color: #e15d56 !important;
+}
+
+/* Стрелочки пагинации (те, что красные/оранжевые на скрине) */
+body.dark-mode .pagination-arrows {
+    color: #e15d56;
+}
+body.dark-mode .header-pill {
+    /* Ночью делаем светлую / прозрачную */
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(15px); 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Ссылки ночью (оставляем белыми или чуть прозрачными) */
+body.dark-mode .header-pill nav ul li a {
+    color: #fff; 
+}
+
+body.dark-mode footer.footer {
+    background: #121212 !important; /* Черный фон вместо светлого */
+    color: #ffffff !important;
+}
+
+body.dark-mode .footer-brand p,
+body.dark-mode .footer-links a {
+    color: #ccc !important; /* Серые ссылки, чтобы не резали глаз */
+}
+
+body.dark-mode .footer-links h4 {
+    color: #fff !important;
+}
+
+@media (max-width: 768px) {
+    #home .container {
+        margin-left: 20px; 
+    }
+}
+@media (max-width: 768px) {
+    /* 1. Делаем "штору" узкой полоской */
+    .header-pill {
+        width: 95% !important; /* На весь экран */
+        max-width: none;
+        padding: 6px 15px !important; /* Убираем лишнюю высоту, делаем узкий padding */
+        border-radius: 40px; /* Изящная полоска */
+        top: 10px; /* Почти у самого края */
+        justify-content: space-between !important; /* Лого слева, меню и кнопка — справа */
+    }
+
+    /* 2. Уменьшаем Лого */
+    .header-pill .logo {
+        font-size: 15px !important;
+        margin-right: 0px !important;
+    }
+
+    /* 3. Кнопка ТЕМЫ (Луна/Солнце) */
+    #theme-toggle {
+        font-size: 14px !important;
+        margin-right: 8px !important; /* Чтобы не липла к меню */
+    }
+
+    /* 4. Навигация: Делаем шрифт и gap минимальными */
+    .header-pill nav ul {
+        gap: 5px !important; /* Минимальное расстояние между ссылками */
+    }
+
+    .header-pill nav ul li a {
+        font-size: 10px !important; /* Шрифт минимальный, но читаемый */
+        letter-spacing: 0;
+    }
+
+    /* 5. Кнопка ВООКING NOW (делаем компактной) */
+    /* Твой класс кнопки может называться по-разному, поправь если нужно */
+    .header-pill .btn-booking-p, 
+    .header-pill .booking-btn {
+        padding: 6px 12px !important; /* Делаем узкой */
+        font-size: 10px !important;    /* Шрифт меньше */
+        border-radius: 20px;
+        margin-left: 0;
+    }
+}
+</style>
+        </header>
+
+      <main id="home" class="hero">
+    <div class="container">
+        <div class="hero-content">  
+        <h1 data-aos="fade-right" data-aos-duration="1000">
+            Railtrips To Here, <br>There And Everywhere!
+        </h1>
+        
+        <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+            We all wish to start our year the best way possible and also according to a common belief if you have a great start to your year.
+        </p>
+        
+        <div data-aos="zoom-in" data-aos-delay="600" data-aos-duration="800">
+            <a href="#offers" id="exploreHero" class="btn-main">Explore more</a>
+    </div>
+    </div>
+</main>
+    </div>
+
+  <section class="main-content">
+    <div class="container">
+        <div id="location" class="popular-location" style="padding: 20px 0;">
+            
+            <div class="section-header" data-aos="fade-down" data-aos-duration="1000">
+                <h2>Popular Location</h2>
+                <p>For every one of us, travel came first. We've spent years living as nomads, pioneers, and<br>voyagers—from island hopping in the</p>
+            </div>
+
+            <div class="location-grid">
+                <div class="location-card" data-aos="fade-right" data-aos-delay="100">
+                    <img src="img/istanbul.svg" alt="Istanbul">
+                    <h3>Istanbul, Turkey</h3>
+                    <p>Istanbul is a major city in Turkey that straddles Europe.</p>
+                </div>
+
+                <div class="location-card" data-aos="fade-right" data-aos-delay="300">
+                    <img src="img/kuala-lumpur.svg" alt="Kuala Lumpur">
+                    <h3>Kuala Lumpur, Malaysia</h3>
+                    <p>A 272-step long trek leads you to this century.</p>
+                </div>
+
+                <div class="location-card" data-aos="fade-right" data-aos-delay="500">
+                    <img src="img/seoul.svg" alt="Seoul">
+                    <h3>Seoul, South Korea</h3>
+                    <p>South Korea officially the Republic of Korea is a country in East Asia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="special-offers" id="offers" style="padding: 20px 0;">
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 20px;" data-aos="fade-down">Special Offers</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;" data-aos="fade-up" data-aos-delay="200">
+            With the New Year comes a refreshing sense of wanderlust...
+        </p>
+        
+        <div class="offers-slider">
+            <div class="offer-card" data-aos="zoom-in-up" data-aos-delay="100">
+                <img src="img/statue.svg" alt="USA"> 
+                <div class="offer-info">
+                    <h3>Statue of Liberty</h3>
+                    <a href="tour-details.html?id=112" class="btn-details">Explore More</a>
+                </div>
+            </div>
+
+            <div class="offer-card" data-aos="zoom-in-up" data-aos-delay="200">
+                <img src="img/wall.svg" alt="China">
+                <div class="offer-info">
+                    <h3>The Great Wall</h3>
+                    <a href="tour-details.html?id=121" class="btn-details">Explore More</a>
+                </div>
+            </div>
+
+            <div class="offer-card" data-aos="zoom-in-up" data-aos-delay="300">
+                <img src="img/dizin.svg" alt="Iran">
+                <div class="offer-info">
+                    <h3>Dizin</h3>
+                    <a href="tour-details.html?id=110" class="btn-details">Explore More</a>
+                </div>
+            </div>
+
+            <div class="offer-card" data-aos="zoom-in-up" data-aos-delay="400">
+                <img src="img/sajek.svg" alt="Bangladesh">
+                <div class="offer-info">
+                    <h3>Sajek Valley</h3>
+                    <a href="tour-details.html?id=133" class="btn-details">Explore More</a>
+                </div>
+            </div>
+
+            <div class="offer-card" data-aos="zoom-in-up" data-aos-delay="500">
+                <img src="img/osaka.svg" alt="Japan">
+                <div class="offer-info">
+                    <h3>Osaka Castle</h3>
+                    <a href="tour-details.html?id=175" class="btn-details">Explore More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <div class="slider-controls">
+            <span class="prev-btn">«</span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="specialProgress"></div>
+            </div>
+            <span class="next-btn">»</span>
+        </div>
+    </div>
+</section>
+
+          <section class="blog" style="padding: 60px 0;" id="blog-section">
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 10px;" data-aos="fade-down">From Blog & News</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;" data-aos="fade-up" data-aos-delay="100">Welcome to Community Conversations...</p>
+        
+        <div class="blog-grid">
+            <div class="blog-left" data-aos="fade-right" data-aos-duration="1000">
+                <img src="img/banff.svg" alt="Banff">
+                <h3>Banff National Park</h3>
+                <p>Banff National Park lies in the heart of the majestic Rocky Mountains in the province of Alberta, and showcases some of Canada's most beautiful scenery.</p>
+            </div>
+
+            <div class="blog-right">
+                <div class="blog-item" data-aos="fade-left" data-aos-delay="200">
+                    <img src="img/hiroshima.svg" alt="">
+                    <div class="text">
+                        <h4>The Hiroshima Peace!</h4>
+                        <p>It was formally opened to the public in August that year.</p>
+                    </div>
+                </div>
+
+                <div class="blog-item" data-aos="fade-left" data-aos-delay="400">
+                    <img src="img/prayers.svg" alt="">
+                    <div class="text">
+                        <h4>The faithful prayers!</h4>
+                        <p>A major pilgrimage center for Hindus, the holy city.</p>
+                    </div>
+                </div>
+
+                <div class="blog-item" data-aos="fade-left" data-aos-delay="600">
+                    <img src="img/waters.svg" alt="">
+                    <div class="text">
+                        <h4>Colourful waters!</h4>
+                        <p>Forest-driven water and energy cycles are poorly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer id="footer" class="footer" style="padding: 80px 0; background: #f9f9f9;">
+    <div class="container footer-content">
+        <div class="footer-brand" data-aos="fade-up" data-aos-delay="100">
+            <div class="logo" style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Trevland</div>
+            <p>Contact us</p>
+            <div class="socials">
+                <span class="soc-icon">f</span> 
+                <span class="soc-icon">📸</span> 
+                <span class="soc-icon">🐦</span> 
+                <span class="soc-icon">G</span>
+            </div>
+        </div>
+
+        <div class="footer-links" data-aos="fade-up" data-aos-delay="200">
+            <h4>Services</h4>
+            <a href="#">About</a> 
+            <a href="#">Our story</a> 
+            <a href="#">Benefits</a> 
+            <a href="#">Branding</a>
+        </div>
+
+        <div class="footer-links" data-aos="fade-up" data-aos-delay="300">
+            <h4>Legal</h4>
+            <a href="#">Terms & Conditions</a> 
+            <a href="#">Privacy Policy</a> 
+            <a href="#">Terms of use</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => { 
+    const destinationSelect = document.getElementById('destination');
+    const travelersInput = document.getElementById('travelers');
+    const departureInput = document.getElementById('departureDate');
+    const returnInput = document.getElementById('returnDate');
+    const totalAmountDisplay = document.getElementById('totalAmount');
+    const bookingForm = document.getElementById('bookingForm');
+    const modal = document.getElementById('modalOverlay');
+
+    const slider = document.querySelector('.offers-slider');
+    const progressBar = document.querySelector('.progress-bar');
+    const progressFill = document.querySelector('.progress-fill');
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+
+    function calculateTotal() {
+        if (!destinationSelect || !totalAmountDisplay) return;
+
+        const pricePerWeek = parseInt(destinationSelect.value) || 0;
+        const count = parseInt(travelersInput.value) || 1;
+        let weeks = 1;
+
+        if (departureInput.value && returnInput.value) {
+            const start = new Date(departureInput.value);
+            const end = new Date(returnInput.value);
+            const diffTime = end - start;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays > 0) {
+                weeks = Math.ceil(diffDays / 7); 
+            }
+        }
+        
+        const total = pricePerWeek * count * weeks;
+        totalAmountDisplay.innerText = total.toLocaleString();
+    }
+
+    if (destinationSelect) {
+        [destinationSelect, travelersInput, departureInput, returnInput].forEach(el => {
+            if (el) {
+                el.addEventListener('input', calculateTotal);
+                el.addEventListener('change', calculateTotal);
+            }
+        });
+    }
+
+    if (slider && progressFill) {
+        let isDragging = false;
+
+        const syncThumb = () => {
+            const scrollTotal = slider.scrollWidth - slider.clientWidth;
+            if (scrollTotal <= 0) return;
+            const percent = slider.scrollLeft / scrollTotal;
+            const maxLeft = progressBar.clientWidth - progressFill.offsetWidth;
+            progressFill.style.left = (percent * maxLeft) + 'px';
+        };
+
+        const moveSlider = (x) => {
+            const rect = progressBar.getBoundingClientRect();
+            let position = x - rect.left - (progressFill.offsetWidth / 2);
+            const maxLeft = rect.width - progressFill.offsetWidth;
+
+            if (position < 0) position = 0;
+            if (position > maxLeft) position = maxLeft;
+
+            progressFill.style.left = position + 'px';
+            const percent = position / maxLeft;
+            slider.scrollLeft = percent * (slider.scrollWidth - slider.clientWidth);
+        };
+
+        progressFill.addEventListener('mousedown', () => isDragging = true);
+        window.addEventListener('mousemove', (e) => { if (isDragging) moveSlider(e.clientX); });
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        if (nextBtn) nextBtn.onclick = () => slider.scrollBy({ left: 300, behavior: 'smooth' });
+        if (prevBtn) prevBtn.onclick = () => slider.scrollBy({ left: -300, behavior: 'smooth' });
+        
+        slider.addEventListener('scroll', syncThumb);
+    }
+
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (modal) modal.style.display = 'flex';
+        });
+    }
+});
+
+function closeModal() {
+    document.getElementById('custom-alert').style.display = 'none';
+    const modal = document.getElementById('modalOverlay');
+    const form = document.getElementById('bookingForm');
+    const totalAmountDisplay = document.getElementById('totalAmount');
+    
+    if (modal) modal.style.display = 'none';
+    if (form) form.reset();
+    if (totalAmountDisplay) totalAmountDisplay.innerText = '0';
+}
+    const slider = document.querySelector('.offers-grid');
+    const progress = document.getElementById('specialProgress');
+
+    if (slider && progress) {
+        slider.addEventListener('scroll', () => {
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
+            const scrollValue = (slider.scrollLeft / maxScroll) * 160; 
+            progress.style.left = scrollValue + "px";
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const heroBtn = document.querySelector('a[href="#offers"]');
+    if (heroBtn) {
+        heroBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.getElementById('offers');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    const slider = document.querySelector('.offers-grid');
+    const progress = document.getElementById('specialProgress');
+    const prev = document.querySelector('.slider-controls span:first-child');
+    const next = document.querySelector('.slider-controls span:last-child');
+
+    if (slider && progress) {
+        const updateProgress = () => {
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
+            const scrollPos = (slider.scrollLeft / maxScroll) * 160;
+            progress.style.transform = `translateX(${scrollPos}px)`;
+        };
+
+        slider.addEventListener('scroll', updateProgress);
+
+        if (next && prev) {
+            next.onclick = () => slider.scrollBy({ left: 350, behavior: 'smooth' });
+            prev.onclick = () => slider.scrollBy({ left: -350, behavior: 'smooth' });
+        }
+    }
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.offers-slider');
+    const progress = document.getElementById('specialProgress');
+    const track = document.querySelector('.progress-bar');
+    const prev = document.querySelector('.prev-btn');
+    const next = document.querySelector('.next-btn');
+
+    if (slider && progress && track) {
+        slider.addEventListener('scroll', () => {
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    if (maxScroll <= 0) return;
+
+    const percentage = slider.scrollLeft / maxScroll;
+    
+    const availableSpace = track.clientWidth - progress.clientWidth;
+    
+    let moveX = percentage * availableSpace;
+    moveX = Math.max(0, Math.min(moveX, availableSpace));
+    
+    progress.style.transform = `translateX(${moveX}px)`;
+});
+
+        next.onclick = () => slider.scrollBy({ left: 350, behavior: 'smooth' });
+        prev.onclick = () => slider.scrollBy({ left: -350, behavior: 'smooth' });
+    }
+
+    const heroBtn = document.querySelector('a[href="#offers"]');
+    if (heroBtn) {
+        heroBtn.onclick = (e) => {
+            e.preventDefault();
+            document.getElementById('offers').scrollIntoView({ behavior: 'smooth' });
+        };
+    }
+});
+function gatekeeper(e) {
+    if (e) e.preventDefault();
+    const status = localStorage.getItem('isLoggedIn');
+    
+    if (status === 'true') {
+        // Если залогинен — переходим
+        window.location.href = 'profile.html';
+    } else {
+        // Если нет — ищем твою модалку
+        const modal = document.getElementById('auth-modal');
+        if (modal) modal.style.display = 'block';
+    }
+}
+
+function openAuth() {
+    const modal = document.getElementById('auth-modal');
+    if (modal) {
+        modal.style.display = 'block';
+        console.log("Модалка открыта");
+    } else {
+        console.error("Ошибка: Модалка с id 'auth-modal' не найдена в HTML!");
+    }
+}
+
+function updateNavbar() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const label = document.getElementById('user-name-label');
+    const icon = document.querySelector('.user-avatar-mini');
+    
+    if (label && icon) {
+        if (isLoggedIn === 'true') {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user && user.name) {
+                label.innerText = user.name.split(' ')[0]; 
+                icon.innerHTML = '✓'; 
+                icon.style.background = '#4CAF50'; 
+            }
+        } else {
+            label.innerText = 'Sign In';
+            icon.innerHTML = '👤';
+            icon.style.background = '#e15d56';
+        }
+    }
+}
+
+window.addEventListener('load', updateNavbar);
+document.getElementById('main-user-btn').addEventListener('click', function(e) {
+    e.preventDefault(); 
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    console.log("Статус входа:", isLoggedIn); 
+
+    if (isLoggedIn === 'true') {
+        console.log("Переходим в профиль...");
+    
+        window.location.href = './profile.html'; 
+    } else {
+        console.log("Открываем окно входа...");
+        openAuth(); 
+    }
+});
+</script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000, 
+    once: true,   
+  });
+  document.getElementById('main-user-btn').onclick = function() {
+    const status = localStorage.getItem('isLoggedIn');
+    
+    if (status === 'true') {
+        window.location.assign('profile.html'); 
+    } else {
+        openAuth(); 
+    }
+};
+function gatekeeper(event) {
+    if (event) event.preventDefault();
+    
+    // Всплывающее окно для теста. Если оно появится — значит связь есть!
+    alert("Кнопка нажата! Сейчас проверю вход..."); 
+
+    const status = localStorage.getItem('isLoggedIn');
+
+    if (status === 'true') {
+        window.location.href = 'profile.html';
+    } else {
+        const modal = document.getElementById('auth-modal');
+        if (modal) {
+            modal.style.display = 'block';
+        } else {
+            alert("Ошибка: Не нашел модальное окно с id='auth-modal'");
+        }
+    }
+}
+function validateAndRegister() {
+    // Сбрасываем ошибки
+    const errors = document.querySelectorAll('#auth-modal small');
+    errors.forEach(err => err.style.display = 'none');
+
+    // Получаем значения
+    const fname = document.getElementById('reg-fname').value.trim();
+    const lname = document.getElementById('reg-lname').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const phone = document.getElementById('reg-phone').value.trim();
+
+    let isValid = true;
+
+    // Проверка Имени и Фамилии
+    if (fname.length < 2) { document.getElementById('error-fname').style.display = 'block'; isValid = false; }
+    if (lname.length < 2) { document.getElementById('error-lname').style.display = 'block'; isValid = false; }
+
+    // Проверка Email (регулярное выражение)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        document.getElementById('error-email').style.display = 'block';
+        isValid = false;
+    }
+
+    // Проверка Телефона (только цифры, минимум 10)
+    const phoneDigits = phone.replace(/\D/g, ''); // убираем всё кроме цифр
+    if (phoneDigits.length < 10) {
+        document.getElementById('error-phone').style.display = 'block';
+        isValid = false;
+    }
+
+  if (isValid) {
+        // Если всё ок — сохраняем расширенный объект пользователя
+        const userData = {
+            name: fname + ' ' + lname,
+            email: email,
+            phone: phone,
+            isLoggedIn: 'true'
+        };
+        localStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        // 1. Показываем красивое оранжевое Welcome
+        alert("Welcome, " + fname + "!");
+        
+        // 2. Вместо мгновенного location.reload(), даем юзеру 2 секунды 
+        // насладиться модалкой, а потом перекидываем на нужную страницу
+        setTimeout(() => {
+            window.location.href = 'profile.html'; // Или останься на этой, если нужно: window.location.reload();
+        }, 2000);
+    }
+}
+window.alert = function(message) {
+    const modal = document.getElementById('custom-alert');
+    const text = document.getElementById('modal-message');
+    if (modal && text) {
+        text.innerText = message;
+        modal.style.display = 'flex';
+    }
+};
+function handleSignUp(event) {
+    if (event) event.preventDefault(); // ОТМЕНЯЕМ ПЕРЕЗАГРУЗКУ
+    
+    const name = document.getElementById('signup-name').value;
+    
+    // Показываем наше красивое окно
+    alert("Welcome, " + name + "!"); 
+
+    // Теперь, чтобы юзер не висел вечно на этой странице, 
+    // делаем плавный переход в профиль ЧЕРЕЗ 2 секунды
+    setTimeout(() => {
+        window.location.href = 'profile.html'; 
+    }, 2000);
+}
+
+const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeBtn) themeBtn.innerText = '☀️';
+    }
+
+    // 2. КЛИК: Переключение и сохранение
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            body.classList.toggle('dark-mode');
+
+            // Проверяем, что в итоге получилось, и записываем в память
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                themeBtn.innerText = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light'); // Запомнили: день
+                themeBtn.innerText = '🌙';
+            }
+        });
+    }
+
+
+</script>
+<div id="auth-modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px);">
+    <div style="background:white; color:#333; margin:8% auto; padding:40px; width:90%; max-width:400px; border-radius:30px; position:relative;">
+        <span onclick="document.getElementById('auth-modal').style.display='none'" style="position:absolute; right:20px; top:10px; font-size:30px; cursor:pointer;">&times;</span>
+        
+        <div id="signup-section">
+            <h2 style="text-align:center; margin-bottom:20px;">Create Profile</h2>
+            
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="reg-fname" placeholder="First Name" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; box-sizing: border-box;">
+                <small id="error-fname" style="color:red; display:none;">Введите имя</small>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="reg-lname" placeholder="Last Name" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; box-sizing: border-box;">
+                <small id="error-lname" style="color:red; display:none;">Введите фамилию</small>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <input type="email" id="reg-email" placeholder="Email (example@mail.com)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; box-sizing: border-box;">
+                <small id="error-email" style="color:red; display:none;">Некорректный email</small>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <input type="tel" id="reg-phone" placeholder="Phone (+7...)" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; box-sizing: border-box;">
+                <small id="error-phone" style="color:red; display:none;">Нужен номер (минимум 10 цифр)</small>
+            </div>
+            
+            <button onclick="validateAndRegister(event)" style="width:100%; padding:15px; background:#e15d56; color:white; border:none; border-radius:10px; font-weight:600; cursor:pointer; margin-bottom: 15px;">Sign Up</button>
+            <p style="text-align:center; font-size:14px;">Already have an account? <a href="#" onclick="switchAuth(event, 'login')" style="color:#e15d56; text-decoration:none; font-weight:600;">Log In</a></p>
+        </div>
+
+        <div id="login-section" style="display:none;">
+            <h2 style="text-align:center; margin-bottom:20px;">Welcome Back</h2>
+            
+            <div style="margin-bottom: 15px;">
+                <input type="text" id="log-user" placeholder="Email or Phone" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; box-sizing: border-box;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <input type="password" id="log-pass" placeholder="Password" style="width:100%; padding:12px; border:1px solid #ddd; border-radius:10px; box-sizing: border-box;">
+            </div>
+            
+            <button onclick="loginUser(event)" style="width:100%; padding:15px; background:#e15d56; color:white; border:none; border-radius:10px; font-weight:600; cursor:pointer; margin-bottom: 15px;">Log In</button>
+            <p style="text-align:center; font-size:14px;">New here? <a href="#" onclick="switchAuth(event, 'signup')" style="color:#e15d56; text-decoration:none; font-weight:600;">Create Account</a></p>
+        </div>
+    </div>
+</div>
+<div id="custom-alert" style="display:none; position:fixed; z-index:999999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); align-items:center; justify-content:center;">
+    <div style="background:#1a1a1a; color:white; padding:35px; width:90%; max-width:400px; border-radius:25px; border:2px solid #fca311; text-align:center; box-shadow: 0 10px 40px rgba(0,0,0,0.6);">
+        <div id="modal-icon" style="font-size:45px; margin-bottom:15px;">✨</div>
+        <h3 id="modal-title" style="margin-bottom:10px; color:#fca311;">System Message</h3>
+        <p id="modal-message" style="font-size:17px; margin-bottom:25px; line-height:1.4;"></p>
+        
+        <input type="password" id="modal-input" style="display:none; width:100%; padding:12px; margin-bottom:20px; background:rgba(255,255,255,0.1); border:1px solid #fca311; border-radius:10px; color:white;">
+
+        <div style="display:flex; gap:10px;">
+            <button type="button" id="btn-modal-confirm" onclick="closeModal()" style="flex:1; padding:14px; background:#fca311; border:none; border-radius:12px; color:black; font-weight:bold; cursor:pointer;">OK</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

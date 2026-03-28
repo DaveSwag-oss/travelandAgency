@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Details - Trevland</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        @media (max-width: 768px) {
+    /* 1. Герой-секция (Шапка тура) */
+    .tour-hero {
+        padding: 80px 0 40px !important;
+        text-align: center;
+    }
+
+    .tour-hero h1 {
+        font-size: 28px !important; /* Уменьшаем заголовок, чтобы не разбивался на 5 строк */
+        line-height: 1.2;
+    }
+
+    /* 2. Контентная часть */
+    .tour-content.container {
+        display: flex;
+        flex-direction: column; /* Складываем описание и карточку цены в столбик */
+        gap: 30px;
+        padding: 20px !important;
+    }
+
+    .tour-description h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    /* 3. Фишки тура (Иконки) */
+    .tour-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Иконки в два столбика */
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .tour-features span {
+        font-size: 13px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 4. Карточка заказа (Ready to go?) */
+    .tour-action-card {
+        width: 100% !important;
+        padding: 25px !important;
+        background: rgba(225, 93, 86, 0.1) !important; /* Легкий оттенок твоего бренда */
+        border: 1px solid rgba(225, 93, 86, 0.3) !important;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .tour-action-card h3 {
+        font-size: 18px;
+    }
+
+    .tour-action-card p {
+        font-size: 16px;
+        margin: 10px 0;
+    }
+
+    .btn-main {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        text-align: center;
+        background: #e15d56;
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+    }
+
+    /* 5. Кнопка "Назад" */
+    .back-link {
+        font-size: 14px;
+        gap: 5px;
+    }
+}
+body.dark-mode {
+    background-color: #121212 !important; /* Черный фон страницы */
+    color: #ffffff !important;            /* Белый текст */
+}
+
+/* Принудительно красим заголовки, параграфы и ссылки на всех страницах */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode p, 
+body.dark-mode span,
+body.dark-mode li {
+    color: #ffffff !important;
+}
+
+/* Убираем белые фоны у секций и контейнеров */
+body.dark-mode section, 
+body.dark-mode div:not(.header-pill) {
+    background-color: transparent !important;
+}
+    </style>
+</head>
+<body class="tour-details-page">
+    <header class="booking-page-header">
+        <div class="container" style="display: flex; align-items: center; padding: 20px 0;">
+            <a href="index.html" class="back-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="tour-hero" id="tourHero">
+        <div class="container">
+            <h1 id="tourTitle">Loading...</h1>
+        </div>
+    </section>
+
+    <section class="tour-content container">
+        <div class="tour-description">
+            <h2>About this journey</h2>
+            <p id="tourDesc">Description will be here...</p>
+            
+            <div class="tour-features">
+                <span>🚂 Scenic Route</span>
+                <span>🏨 Luxury Stay</span>
+                <span>🍽️ Meals Included</span>
+            </div>
+        </div>
+
+        <div class="tour-action-card">
+            <h3>Ready to go?</h3>
+            <p>Starting from <strong>$450</strong></p>
+            <a href="#" id="bookBtn" class="btn-main">Book This Trip Now</a>
+        </div>
+    </section>
+    
+    <script>
+    const tourData = {
+    "112": {
+        title: "Statue of Liberty, USA",
+        desc: "Standing tall as a beacon of hope and democracy, the Statue of Liberty is more than just a monument. Our journey starts with a scenic ferry ride across the New York Harbor, offering unbeatable views of the Manhattan skyline. You'll explore the pedestal museum, climb to the observation decks, and hear the stories of millions who arrived at Ellis Island in search of a new life.",
+        itinerary: ["Ferry ride from Battery Park", "Liberty Island Museum tour", "Pedestal access & panoramic views", "Ellis Island Immigration Museum visit"],
+        img: "img/statue.svg",
+        price: "450"
+    },
+    "121": {
+        title: "The Great Wall, China",
+        desc: "One of the greatest engineering feats in human history. We take you to the Badaling and Mutianyu sections, where the wall snakes across the dramatic mountain ridges. This isn't just a walk; it's a journey through 2,000 years of history. Experience the high-speed rail from Beijing and enjoy a traditional lunch in a village at the foot of the mountains.",
+        itinerary: ["High-speed train from Beijing", "Cable car ascent to the watchtowers", "Guided historical walk (3 hours)", "Traditional farm-to-table lunch"],
+        img: "img/wall.svg", 
+        price: "600"
+    },
+    "110": {
+        title: "Dizin, Iran",
+        desc: "Welcome to the highest ski resort in the Middle East! Dizin offers a unique combination of high-altitude powder snow and warm Persian sunshine. Located in the Alborz mountains, this resort is famous for its long seasons and relaxed atmosphere. Perfect for both professional skiers and those who just want to enjoy the spectacular mountain views and local tea houses.",
+        itinerary: ["Mountain transfer from Tehran", "Full-day ski pass & equipment", "Traditional Persian dinner at 3,000m", "Stay at a cozy mountain lodge"],
+        img: "img/dizin.svg",
+        price: "380"
+    },
+    "133": {
+        title: "Sajek Valley, Bangladesh",
+        desc: "Known as the 'Queen of Hills', Sajek is where you can literally touch the clouds. This remote valley offers an escape from the modern world. Watch the sunrise over the Lushai hills and the sunset over the mist-covered valleys. It's a journey through ethnic villages and untouched nature that will stay in your heart forever.",
+        itinerary: ["Chander Gari mountain drive", "Sunrise watch at Konglak Para", "Interaction with ethnic communities", "Stargazing at the valley resort"],
+        img: "img/sajek.svg",
+        price: "320"
+    },
+    "175": {
+        title: "Osaka Castle, Japan",
+        desc: "Step into the Sengoku period at one of Japan's most famous landmarks. Osaka Castle is a symbol of power and history, surrounded by massive stone walls and a scenic moat. During cherry blossom season, the castle grounds transform into a pink paradise. Explore the 8-story museum inside and enjoy the 360-degree view of the modern city from the top.",
+        itinerary: ["Visit to the Main Tower & Museum", "Walk through Nishinomaru Garden", "Traditional matcha tea ceremony", "Local food tour in Dotonbori"],
+        img: "img/osaka.svg",
+        price: "550"
+    }
+};
+
+    function loadTourDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tourId = urlParams.get('id');
+
+        if (tourId && tourData[tourId]) {
+            const data = tourData[tourId];
+            document.getElementById('tourTitle').innerText = data.title;
+            document.getElementById('tourDesc').innerText = data.desc;
+            
+            const heroSection = document.getElementById('tourHero');
+            heroSection.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${data.img}')`;
+            
+            const bookBtn = document.getElementById('bookBtn');
+            if(bookBtn) bookBtn.href = `booking.html?id=${tourId}`;
+        } else {
+            window.location.href = 'index.html';
+        }
+    }
+    window.onload = loadTourDetails;
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeBtn) themeBtn.innerText = '☀️';
+    }
+
+    // 2. КЛИК: Переключение и сохранение
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            body.classList.toggle('dark-mode');
+
+            // Проверяем, что в итоге получилось, и записываем в память
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                themeBtn.innerText = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light'); // Запомнили: день
+                themeBtn.innerText = '🌙';
+            }
+        });
+    }
+</script>
+</body>
+</html>

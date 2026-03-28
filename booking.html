@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Trevland</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<style>
+body.dark-mode {
+    background-color: #121212 !important; /* Черный фон страницы */
+    color: #ffffff !important;            /* Белый текст */
+}
+
+/* Принудительно красим заголовки, параграфы и ссылки на всех страницах */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode p, 
+body.dark-mode span,
+body.dark-mode li {
+    color: #ffffff !important;
+}
+
+/* Убираем белые фоны у секций и контейнеров */
+body.dark-mode section, 
+body.dark-mode div:not(.header-pill) {
+    background-color: transparent !important;
+}
+</style>
+<body>
+    <body class="booking-page-body"></body>
+    <header class="container" style="padding: 20px 0;">
+        <a href="index.html" class="logo">Trevland</a>
+        <header class="booking-page-header"></header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#location">Location</a></li>
+                <li><a href="index.html#blog-section">Blog</a></li>
+                <li><a href="index.html#footer">About</a></li>
+                <li><a href="index.html#footer">Contact</a></li>
+            </ul>
+        </nav>
+        <a href="booking.html" class="btn-top">Booking now</a>
+    </header>
+   <section class="booking-page">
+    <div class="main-container">
+        
+        <h1 class="booking-title">Book Your Railtrip</h1>
+
+        <div class="booking-wrapper">
+            <form class="booking-form" id="bookingForm">
+                <div class="step-block active" id="step1">
+                    <div class="input-group">
+                        <div class="field"><h3>First Name</h3><input type="text" placeholder="John" required></div>
+                        <div class="field"><h3>Last Name</h3><input type="text" placeholder="Doe" required></div>
+                    </div>
+                    <div class="field"><h3>Email</h3><input type="email" placeholder="example@mail.com" required></div>
+                    <div class="field"><h3>Phone Number</h3><input type="tel" placeholder="+1 234 567 89" required></div>
+                    <button type="button" class="btn-next" onclick="nextStep(2)">Next: Trip Details</button>
+                </div>
+
+                <div class="step-block" id="step2">
+                    <div class="field">
+                        <h3>Destination</h3>
+                        <select id="destination" onchange="updatePreview()" required>
+                            <option value="" disabled selected>Select Destination</option>
+                            <option value="112">Statue of Liberty, USA</option>
+                            <option value="121">The Great Wall, China</option>
+                            <option value="110">Dizin, Iran</option>
+                            <option value="133">Sajek Valley, Bangladesh</option>
+                            <option value="175">Osaka Castle, Japan</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <div class="field"><h3>Departure</h3><input type="date" id="departureDate"></div>
+                        <div class="field"><h3>Return</h3><input type="date" id="returnDate"></div>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-prev" onclick="nextStep(1)">Back</button>
+                        <button type="button" class="btn-next" onclick="nextStep(3)">Next: Summary</button>
+                    </div>
+                </div>
+
+                <div class="step-block" id="step3">
+                    <div class="field"><h3>Travelers</h3><input type="number" id="travelers" min="1" value="1"></div>
+                    <div class="price-box">
+                        <p>Total Amount:</p>
+                        <h2>$<span id="totalAmount">0</span></h2>
+                    </div>
+                    <div class="btn-row">
+                        <button type="button" class="btn-prev" onclick="nextStep(2)">Back</button>
+                        <button type="submit" class="btn-main">Confirm Booking</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="booking-sidebar">
+                <div class="sidebar-content">
+                    <h2 id="destName">Your Journey</h2>
+                    <p>Complete the steps to book your perfect rail adventure.</p>
+                    <div class="badge" id="stepBadge">Step 1 of 3</div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="success-icon">✓</div>
+            <h2>Success!</h2>
+            <p>Your booking has been confirmed. Our manager will contact you shortly.</p>
+            <button class="btn-main" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const destinationSelect = document.getElementById('destination');
+    const travelersInput = document.getElementById('travelers');
+    const departureInput = document.getElementById('departureDate');
+    const returnInput = document.getElementById('returnDate');
+    const totalAmountDisplay = document.getElementById('totalAmount');
+    const bookingForm = document.getElementById('bookingForm');
+    const modal = document.getElementById('modalOverlay');
+
+    window.nextStep = function(step) {
+    document.querySelectorAll('.step-block').forEach(b => b.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+    
+    const badge = document.getElementById('stepBadge');
+    if (badge) badge.innerText = `Step ${step} of 3`;
+};
+
+window.updatePreview = function() {
+    const nameElement = document.getElementById('destName');
+    const selectedOption = destinationSelect.options[destinationSelect.selectedIndex];
+    
+    if (nameElement && selectedOption) {
+
+        nameElement.innerText = selectedOption.text.split(',')[0];
+    }
+    calculateTotal(); 
+};
+
+    window.updatePreview = function() {
+        const imgElement = document.getElementById('destImage');
+        const nameElement = document.getElementById('destName');
+        
+        if (!destinationSelect || !imgElement) return;
+
+        const selectedOption = destinationSelect.options[destinationSelect.selectedIndex];
+        const imagePath = selectedOption.getAttribute('data-img');
+
+        if (imagePath) {
+            imgElement.style.opacity = '0.3'; 
+            setTimeout(() => {
+                imgElement.src = imagePath;
+                imgElement.style.opacity = '1';
+                nameElement.innerText = selectedOption.text.split(',')[0];
+            }, 200);
+        }
+        calculateTotal(); 
+    };
+
+    function calculateTotal() {
+        if (!destinationSelect || !totalAmountDisplay) return;
+
+        const pricePerDay = parseInt(destinationSelect.value) || 0;
+        const count = parseInt(travelersInput.value) || 1;
+        let days = 1;
+
+        if (departureInput.value && returnInput.value) {
+            const start = new Date(departureInput.value);
+            const end = new Date(returnInput.value);
+            
+            const diffTime = end - start;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            days = diffDays > 0 ? diffDays : 1;
+        }
+
+        const total = pricePerDay * count * days;
+        totalAmountDisplay.innerText = total.toLocaleString();
+    }
+
+    if (destinationSelect) {
+        [destinationSelect, travelersInput, departureInput, returnInput].forEach(el => {
+            if (el) {
+                el.addEventListener('input', calculateTotal);
+                el.addEventListener('change', calculateTotal);
+            }
+        });
+    }
+
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (modal) modal.style.display = 'flex';
+        });
+    }
+});
+
+function closeModal() {
+    const modal = document.getElementById('modalOverlay');
+    if (modal) modal.style.display = 'none';
+}
+
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault(); 
+    
+    
+    const name = document.querySelector('input[placeholder="John"]').value;
+    const destination = document.getElementById('destination').options[document.getElementById('destination').selectedIndex].text;
+
+    
+    const message = `Thanks, ${name}! Your railtrip to ${destination} is officially confirmed. Check your email for tickets!`;
+    document.getElementById('successMessage').innerText = message;
+    document.getElementById('successModal').style.display = 'flex';
+});
+
+function closeModal() {
+    window.location.href = 'index.html'; 
+}
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Останавливаем перезагрузку страницы
+
+    // 1. Собираем данные из полей
+    const destSelect = document.getElementById('destination');
+    const destinationName = destSelect.options[destSelect.selectedIndex].text;
+    const departure = document.getElementById('departureDate').value;
+    const guests = document.getElementById('travelers').value;
+    const total = document.getElementById('totalAmount').innerText;
+
+    // 2. Формируем объект тура
+    const newBooking = {
+        id: Date.now(), // Уникальный ID заказа
+        destination: destinationName,
+        date: departure || "TBA",
+        travelers: guests,
+        price: total,
+        status: "Confirmed"
+    };
+
+    // 3. Сохраняем в LocalStorage
+    // Достаем старые записи или создаем пустой массив, если их нет
+    let myTrips = JSON.parse(localStorage.getItem('myTrips')) || [];
+    
+    // Добавляем новый тур
+    myTrips.push(newBooking);
+    
+    // Сохраняем обновленный массив обратно
+    localStorage.setItem('myTrips', JSON.stringify(myTrips));
+
+    // 4. Финальный аккорд: уведомление и переход в профиль
+    alert('Booking Successful! Check your profile.');
+    window.location.href = 'profile.html';
+});
+// Перехватываем стандартный alert
+window.alert = function(message) {
+    showCustomModal(message);
+};
+
+function showCustomModal(msg) {
+    const modal = document.getElementById('custom-alert');
+    const text = document.getElementById('modal-message');
+    
+    if (modal && text) {
+        text.innerText = msg;
+        modal.style.display = 'flex'; // Используем flex для центрирования
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+    }
+}
+
+function closeModal() {
+    document.getElementById('custom-alert').style.display = 'none';
+}
+const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeBtn) themeBtn.innerText = '☀️';
+    }
+
+    // 2. КЛИК: Переключение и сохранение
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            body.classList.toggle('dark-mode');
+
+            // Проверяем, что в итоге получилось, и записываем в память
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                themeBtn.innerText = '☀️';
+            } else {
+                localStorage.setItem('theme', 'light'); // Запомнили: день
+                themeBtn.innerText = '🌙';
+            }
+        });
+    }
+</script>
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <div class="success-icon">✔</div>
+        <h2>Success!</h2>
+        <p id="successMessage">Your trip is booked.</p>
+        <button onclick="closeModal()" class="btn-main">Great!</button>
+    </div>
+</div>
+<div id="custom-alert" style="display:none; position:fixed; z-index:999999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); align-items:center; justify-content:center;">
+    <div style="background:#1a1a1a; color:white; padding:35px; width:90%; max-width:400px; border-radius:25px; border:2px solid #fca311; text-align:center; box-shadow: 0 10px 40px rgba(0,0,0,0.6);">
+        <div style="font-size:45px; margin-bottom:15px;">✨</div>
+        <h3 style="margin-bottom:10px; color:#fca311; font-family:sans-serif;">System Message</h3>
+        <p id="modal-message" style="font-size:17px; margin-bottom:25px; line-height:1.4; font-family:sans-serif;"></p>
+        <button onclick="closeModal()" style="width:100%; padding:14px; background:#fca311; border:none; border-radius:12px; color:black; font-weight:bold; cursor:pointer; font-size:16px;">OK</button>
+    </div>
+</div>
+</body>
+</html>
