@@ -110,18 +110,18 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;  /* Контент слева */
+    justify-content: flex-start;  
     position: relative;
     background: url('img/nebo.svg') center/cover no-repeat;
     padding-top: 120px;
-    color: #fff;  /* Белый текст */
+    color: #fff;  
 }
 
 #home::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.35); /* затемнение */
+    background: rgba(0,0,0,0.35); 
     z-index: 0;
 }
 
@@ -132,8 +132,8 @@
 
 .container {
     max-width: 1140px;
-    margin: 0 auto;    /* Возвращаем контейнер в центр экрана */
-    padding: 0 20px;   /* Безопасные отступы от краев на мобилках */
+    margin: 0 auto;    
+    padding: 0 20px;   
     position: relative;
     z-index: 1;
 }
@@ -142,13 +142,12 @@
     max-width: 600px;
     text-align: left;
     margin: 0;
-    /* --- ДОБАВЬ ВОТ ЭТО --- */
-    padding-left: 40px; /* Число можно менять: больше px — дальше от края */
+    padding-left: 40px; 
 }
 
 .hero-content h1,
 .hero-content p {
-    color: #fff;  /* Чтобы текст был белым */
+    color: #fff; 
 }
 
 #home .container {
@@ -156,84 +155,73 @@
     margin-right: auto; 
 }
 
-/* Когда включен ночной режим */
 body.dark-mode {
-    background-color: #121212; /* Глубокий темный цвет фона */
-    color: #ffffff;            /* Весь текст на странице становится белым */
+    background-color: #121212; 
+    color: #ffffff;            
 }
  
-/* Если у тебя есть блоки с явно заданным белым фоном (например, карточки или секции) */
 body.dark-mode section, 
 body.dark-mode .container,
 body.dark-mode div:not(.header-pill) { 
-    /* Перекрашиваем блоки, но аккуратно, чтобы не испортить шапку */
     background-color: transparent; 
 }
 
-/* Чтобы переходы были плавными и не били по глазам */
 body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
-/* Светлая тема (по умолчанию) */
+
 .special-offers .explore-more {
     color: #000;
 }
 
 .btn-details {
-    color: #000; /* Днем черные */
+    color: #000; 
     text-decoration: none;
     transition: 0.3s;
 }
 
-/* Кнопки в темном режиме */
 body.dark-mode .btn-details {
-    color: #fff !important; /* Ночью белые */
+    color: #fff !important; 
 }
 
-/* Заголовки карточек тоже должны стать белыми */
 body.dark-mode .offer-info h3 {
     color: #fff !important;
 }
 body.dark-mode .progress-bar {
-    background: rgba(255, 255, 255, 0.1) !important; /* Серый фон дорожки */
+    background: rgba(255, 255, 255, 0.1) !important; 
 }
 
 body.dark-mode .progress-fill {
-    background: #e15d56 !important; /* Оранжевая заливка */
-    box-shadow: 0 0 10px #e15d56;    /* Добавим свечение, чтобы горела */
+    background: #e15d56 !important; 
+    box-shadow: 0 0 10px #e15d56;    
 }
 
-/* Стрелочки переключения */
 body.dark-mode .prev-btn, 
 body.dark-mode .next-btn {
     color: #e15d56 !important;
 }
-
-/* Стрелочки пагинации (те, что красные/оранжевые на скрине) */
 body.dark-mode .pagination-arrows {
     color: #e15d56;
 }
 body.dark-mode .header-pill {
-    /* Ночью делаем светлую / прозрачную */
     background: rgba(255, 255, 255, 0.15); 
     backdrop-filter: blur(15px); 
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Ссылки ночью (оставляем белыми или чуть прозрачными) */
 body.dark-mode .header-pill nav ul li a {
     color: #fff; 
 }
 
 body.dark-mode footer.footer {
-    background: #121212 !important; /* Черный фон вместо светлого */
+    background: #121212 !important; 
     color: #ffffff !important;
 }
 
 body.dark-mode .footer-brand p,
 body.dark-mode .footer-links a {
-    color: #ccc !important; /* Серые ссылки, чтобы не резали глаз */
+    color: #ccc !important; 
 }
 
 body.dark-mode .footer-links h4 {
@@ -246,44 +234,39 @@ body.dark-mode .footer-links h4 {
     }
 }
 @media (max-width: 768px) {
-    /* 1. Делаем "штору" узкой полоской */
+    
     .header-pill {
-        width: 95% !important; /* На весь экран */
+        width: 95% !important; 
         max-width: none;
-        padding: 6px 15px !important; /* Убираем лишнюю высоту, делаем узкий padding */
-        border-radius: 40px; /* Изящная полоска */
-        top: 10px; /* Почти у самого края */
-        justify-content: space-between !important; /* Лого слева, меню и кнопка — справа */
+        padding: 6px 15px !important; 
+        border-radius: 40px; 
+        top: 10px; 
+        justify-content: space-between !important; 
     }
 
-    /* 2. Уменьшаем Лого */
     .header-pill .logo {
         font-size: 15px !important;
         margin-right: 0px !important;
     }
 
-    /* 3. Кнопка ТЕМЫ (Луна/Солнце) */
     #theme-toggle {
         font-size: 14px !important;
-        margin-right: 8px !important; /* Чтобы не липла к меню */
+        margin-right: 8px !important; 
     }
 
-    /* 4. Навигация: Делаем шрифт и gap минимальными */
     .header-pill nav ul {
-        gap: 5px !important; /* Минимальное расстояние между ссылками */
+        gap: 5px !important; 
     }
 
     .header-pill nav ul li a {
-        font-size: 10px !important; /* Шрифт минимальный, но читаемый */
+        font-size: 10px !important;
         letter-spacing: 0;
     }
 
-    /* 5. Кнопка ВООКING NOW (делаем компактной) */
-    /* Твой класс кнопки может называться по-разному, поправь если нужно */
     .header-pill .btn-booking-p, 
     .header-pill .booking-btn {
-        padding: 6px 12px !important; /* Делаем узкой */
-        font-size: 10px !important;    /* Шрифт меньше */
+        padding: 6px 12px !important; 
+        font-size: 10px !important;    
         border-radius: 20px;
         margin-left: 0;
     }
@@ -653,10 +636,8 @@ function gatekeeper(e) {
     const status = localStorage.getItem('isLoggedIn');
     
     if (status === 'true') {
-        // Если залогинен — переходим
         window.location.href = 'profile.html';
     } else {
-        // Если нет — ищем твою модалку
         const modal = document.getElementById('auth-modal');
         if (modal) modal.style.display = 'block';
     }
@@ -726,8 +707,6 @@ document.getElementById('main-user-btn').addEventListener('click', function(e) {
 };
 function gatekeeper(event) {
     if (event) event.preventDefault();
-    
-    // Всплывающее окно для теста. Если оно появится — значит связь есть!
     alert("Кнопка нажата! Сейчас проверю вход..."); 
 
     const status = localStorage.getItem('isLoggedIn');
@@ -756,26 +735,22 @@ function validateAndRegister() {
 
     let isValid = true;
 
-    // Проверка Имени и Фамилии
     if (fname.length < 2) { document.getElementById('error-fname').style.display = 'block'; isValid = false; }
     if (lname.length < 2) { document.getElementById('error-lname').style.display = 'block'; isValid = false; }
 
-    // Проверка Email (регулярное выражение)
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
         document.getElementById('error-email').style.display = 'block';
         isValid = false;
     }
 
-    // Проверка Телефона (только цифры, минимум 10)
-    const phoneDigits = phone.replace(/\D/g, ''); // убираем всё кроме цифр
+    const phoneDigits = phone.replace(/\D/g, ''); 
     if (phoneDigits.length < 10) {
         document.getElementById('error-phone').style.display = 'block';
         isValid = false;
     }
 
   if (isValid) {
-        // Если всё ок — сохраняем расширенный объект пользователя
         const userData = {
             name: fname + ' ' + lname,
             email: email,
@@ -784,14 +759,9 @@ function validateAndRegister() {
         };
         localStorage.setItem('user', JSON.stringify(userData));
         localStorage.setItem('isLoggedIn', 'true');
-        
-        // 1. Показываем красивое оранжевое Welcome
         alert("Welcome, " + fname + "!");
-        
-        // 2. Вместо мгновенного location.reload(), даем юзеру 2 секунды 
-        // насладиться модалкой, а потом перекидываем на нужную страницу
         setTimeout(() => {
-            window.location.href = 'profile.html'; // Или останься на этой, если нужно: window.location.reload();
+            window.location.href = 'profile.html'; 
         }, 2000);
     }
 }
@@ -804,15 +774,10 @@ window.alert = function(message) {
     }
 };
 function handleSignUp(event) {
-    if (event) event.preventDefault(); // ОТМЕНЯЕМ ПЕРЕЗАГРУЗКУ
+    if (event) event.preventDefault(); 
     
     const name = document.getElementById('signup-name').value;
-    
-    // Показываем наше красивое окно
     alert("Welcome, " + name + "!"); 
-
-    // Теперь, чтобы юзер не висел вечно на этой странице, 
-    // делаем плавный переход в профиль ЧЕРЕЗ 2 секунды
     setTimeout(() => {
         window.location.href = 'profile.html'; 
     }, 2000);
@@ -820,26 +785,21 @@ function handleSignUp(event) {
 
 const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
-
-    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
         if (themeBtn) themeBtn.innerText = '☀️';
     }
 
-    // 2. КЛИК: Переключение и сохранение
     if (themeBtn) {
         themeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             
             body.classList.toggle('dark-mode');
-
-            // Проверяем, что в итоге получилось, и записываем в память
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                localStorage.setItem('theme', 'dark'); 
                 themeBtn.innerText = '☀️';
             } else {
-                localStorage.setItem('theme', 'light'); // Запомнили: день
+                localStorage.setItem('theme', 'light'); 
                 themeBtn.innerText = '🌙';
             }
         });
