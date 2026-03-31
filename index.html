@@ -11,6 +11,7 @@
         </header>
     <div class="header-wrapper">
     <header class="header-pill">
+        <span id="hamburger-btn" style="cursor: pointer; font-size: 30px; color: white; display: none;">≡</span>
         <div class="logo">Trevland</div>
         <div id="main-user-btn">
     <span id="theme-toggle" style="cursor: pointer; font-size: 20px;">🌙</span>
@@ -270,6 +271,72 @@ body.dark-mode .footer-links h4 {
         border-radius: 20px;
         margin-left: 0;
     }
+}
+@media (max-width: 768px) {
+    /* 1. Убираем "стик" (внешнюю оболочку) */
+    .header-pill {
+        background: none !important;
+        backdrop-filter: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        justify-content: space-between !important;
+        padding: 15px 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* 2. Показываем гамбургер */
+    #hamburger-btn {
+        display: block !important;
+        z-index: 3000;
+        order: -1; /* Ставим его слева от лого, если нужно */
+    }
+
+    /* 3. СОБИРАЕМ ШТОРУ: прячем nav, кнопку брони и луну */
+    /* Мы превращаем тег <nav> в ту самую узкую штору */
+    .header-pill nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Спрятана */
+        width: 45%;   /* Узкая область, как ты просил */
+        height: 100vh;
+        background: rgba(15, 15, 15, 0.98);
+        backdrop-filter: blur(15px);
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 80px; /* Отступ сверху, чтобы ссылки не лезли на лого */
+        transition: 0.4s ease;
+        z-index: 2500;
+    }
+
+    /* 4. Выкатываем штору */
+    .header-pill.mobile-active nav {
+        right: 0;
+    }
+
+    /* 5. Навигация В РЯД (столбиком) и увеличиваем кнопки */
+    .header-pill nav ul {
+        flex-direction: column !important;
+        gap: 25px !important; /* Расстояние между пунктами */
+        width: 100%;
+        align-items: center;
+    }
+
+    .header-pill nav ul li a {
+        font-size: 20px !important; /* Увеличили размер текста */
+        font-weight: 500;
+    }
+
+    /* 6. Прячем Луну и Кнопку Booking из хедера (чтобы не мешались) */
+    .header-pill > #main-user-btn,
+    .header-pill > .btn-top {
+        display: none !important;
+    }
+
+    /* 7. Если хочешь, чтобы Луна и Booking тоже были в шторе — 
+       просто добавь их клоны в nav li или используй JS для переноса. 
+       Но пока просто убираем их с мобильного экрана, чтобы был чистый хедер. */
 }
 </style>
         </header>
@@ -723,11 +790,9 @@ function gatekeeper(event) {
     }
 }
 function validateAndRegister() {
-    // Сбрасываем ошибки
     const errors = document.querySelectorAll('#auth-modal small');
     errors.forEach(err => err.style.display = 'none');
 
-    // Получаем значения
     const fname = document.getElementById('reg-fname').value.trim();
     const lname = document.getElementById('reg-lname').value.trim();
     const email = document.getElementById('reg-email').value.trim();
@@ -805,6 +870,12 @@ const themeBtn = document.getElementById('theme-toggle');
         });
     }
 
+const burger = document.getElementById('hamburger-btn');
+const headerPill = document.querySelector('.header-pill');
+
+burger.addEventListener('click', () => {
+    headerPill.classList.toggle('mobile-active');
+});
 
 </script>
 <div id="auth-modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px);">

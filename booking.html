@@ -8,11 +8,10 @@
 </head>
 <style>
 body.dark-mode {
-    background-color: #121212 !important; /* Черный фон страницы */
-    color: #ffffff !important;            /* Белый текст */
+    background-color: #121212 !important; 
+    color: #ffffff !important;            
 }
 
-/* Принудительно красим заголовки, параграфы и ссылки на всех страницах */
 body.dark-mode h1, 
 body.dark-mode h2, 
 body.dark-mode h3, 
@@ -23,7 +22,6 @@ body.dark-mode li {
     color: #ffffff !important;
 }
 
-/* Убираем белые фоны у секций и контейнеров */
 body.dark-mode section, 
 body.dark-mode div:not(.header-pill) {
     background-color: transparent !important;
@@ -227,18 +225,16 @@ function closeModal() {
     window.location.href = 'index.html'; 
 }
 document.getElementById('bookingForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Останавливаем перезагрузку страницы
+    e.preventDefault(); 
 
-    // 1. Собираем данные из полей
     const destSelect = document.getElementById('destination');
     const destinationName = destSelect.options[destSelect.selectedIndex].text;
     const departure = document.getElementById('departureDate').value;
     const guests = document.getElementById('travelers').value;
     const total = document.getElementById('totalAmount').innerText;
 
-    // 2. Формируем объект тура
     const newBooking = {
-        id: Date.now(), // Уникальный ID заказа
+        id: Date.now(), 
         destination: destinationName,
         date: departure || "TBA",
         travelers: guests,
@@ -246,21 +242,12 @@ document.getElementById('bookingForm').addEventListener('submit', function(e) {
         status: "Confirmed"
     };
 
-    // 3. Сохраняем в LocalStorage
-    // Достаем старые записи или создаем пустой массив, если их нет
     let myTrips = JSON.parse(localStorage.getItem('myTrips')) || [];
-    
-    // Добавляем новый тур
     myTrips.push(newBooking);
-    
-    // Сохраняем обновленный массив обратно
     localStorage.setItem('myTrips', JSON.stringify(myTrips));
-
-    // 4. Финальный аккорд: уведомление и переход в профиль
     alert('Booking Successful! Check your profile.');
     window.location.href = 'profile.html';
 });
-// Перехватываем стандартный alert
 window.alert = function(message) {
     showCustomModal(message);
 };
@@ -271,7 +258,7 @@ function showCustomModal(msg) {
     
     if (modal && text) {
         text.innerText = msg;
-        modal.style.display = 'flex'; // Используем flex для центрирования
+        modal.style.display = 'flex'; 
         modal.style.alignItems = 'center';
         modal.style.justifyContent = 'center';
     }
@@ -283,25 +270,21 @@ function closeModal() {
 const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
         if (themeBtn) themeBtn.innerText = '☀️';
     }
 
-    // 2. КЛИК: Переключение и сохранение
     if (themeBtn) {
         themeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             
             body.classList.toggle('dark-mode');
-
-            // Проверяем, что в итоге получилось, и записываем в память
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                localStorage.setItem('theme', 'dark'); 
                 themeBtn.innerText = '☀️';
             } else {
-                localStorage.setItem('theme', 'light'); // Запомнили: день
+                localStorage.setItem('theme', 'light'); 
                 themeBtn.innerText = '🌙';
             }
         });

@@ -8,21 +8,19 @@
     <link rel="stylesheet" href="css/main.css">
     <style>
         @media (max-width: 768px) {
-    /* 1. Герой-секция (Шапка тура) */
     .tour-hero {
         padding: 80px 0 40px !important;
         text-align: center;
     }
 
     .tour-hero h1 {
-        font-size: 28px !important; /* Уменьшаем заголовок, чтобы не разбивался на 5 строк */
+        font-size: 28px !important; 
         line-height: 1.2;
     }
 
-    /* 2. Контентная часть */
     .tour-content.container {
         display: flex;
-        flex-direction: column; /* Складываем описание и карточку цены в столбик */
+        flex-direction: column; 
         gap: 30px;
         padding: 20px !important;
     }
@@ -32,10 +30,9 @@
         margin-bottom: 15px;
     }
 
-    /* 3. Фишки тура (Иконки) */
     .tour-features {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Иконки в два столбика */
+        grid-template-columns: 1fr 1fr; 
         gap: 10px;
         margin-top: 20px;
     }
@@ -50,11 +47,10 @@
         justify-content: center;
     }
 
-    /* 4. Карточка заказа (Ready to go?) */
     .tour-action-card {
         width: 100% !important;
         padding: 25px !important;
-        background: rgba(225, 93, 86, 0.1) !important; /* Легкий оттенок твоего бренда */
+        background: rgba(225, 93, 86, 0.1) !important; 
         border: 1px solid rgba(225, 93, 86, 0.3) !important;
         border-radius: 20px;
         text-align: center;
@@ -89,11 +85,10 @@
     }
 }
 body.dark-mode {
-    background-color: #121212 !important; /* Черный фон страницы */
-    color: #ffffff !important;            /* Белый текст */
+    background-color: #121212 !important; 
+    color: #ffffff !important;            
 }
 
-/* Принудительно красим заголовки, параграфы и ссылки на всех страницах */
 body.dark-mode h1, 
 body.dark-mode h2, 
 body.dark-mode h3, 
@@ -104,7 +99,6 @@ body.dark-mode li {
     color: #ffffff !important;
 }
 
-/* Убираем белые фоны у секций и контейнеров */
 body.dark-mode section, 
 body.dark-mode div:not(.header-pill) {
     background-color: transparent !important;
@@ -210,25 +204,21 @@ body.dark-mode div:not(.header-pill) {
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
         if (themeBtn) themeBtn.innerText = '☀️';
     }
 
-    // 2. КЛИК: Переключение и сохранение
     if (themeBtn) {
         themeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             
             body.classList.toggle('dark-mode');
-
-            // Проверяем, что в итоге получилось, и записываем в память
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                localStorage.setItem('theme', 'dark'); 
                 themeBtn.innerText = '☀️';
             } else {
-                localStorage.setItem('theme', 'light'); // Запомнили: день
+                localStorage.setItem('theme', 'light'); 
                 themeBtn.innerText = '🌙';
             }
         });

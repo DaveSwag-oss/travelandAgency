@@ -186,11 +186,10 @@
     display: inline-block;
 }
 body.dark-mode {
-    background-color: #121212 !important; /* Черный фон страницы */
-    color: #ffffff !important;            /* Белый текст */
+    background-color: #121212 !important; 
+    color: #ffffff !important;            
 }
 
-/* Принудительно красим заголовки, параграфы и ссылки на всех страницах */
 body.dark-mode h1, 
 body.dark-mode h2, 
 body.dark-mode h3, 
@@ -201,20 +200,18 @@ body.dark-mode li {
     color: #ffffff !important;
 }
 
-/* Убираем белые фоны у секций и контейнеров */
 body.dark-mode section, 
 body.dark-mode div:not(.header-pill) {
     background-color: transparent !important;
 }
-/* --- АДАПТИВ ДЛЯ ПРОФИЛЯ --- */
 @media (max-width: 768px) {
     body {
         padding: 20px 10px;
-        align-items: flex-start; /* Чтобы на мобилках контент не обрезался сверху */
+        align-items: flex-start; 
     }
 
     .profile-dashboard {
-        flex-direction: column; /* Сайдбар сверху, контент снизу */
+        flex-direction: column; 
         width: 100%;
         min-height: auto;
         border-radius: 20px;
@@ -229,19 +226,19 @@ body.dark-mode div:not(.header-pill) {
     }
 
     .back-home-link {
-        justify-content: center; /* Центрируем кнопку "Назад" */
+        justify-content: center; 
         margin-bottom: 20px;
     }
 
     .profile-nav {
         display: flex;
-        flex-wrap: wrap; /* Кнопки навигации в ряд, если не влезают — переносятся */
+        flex-wrap: wrap; 
         justify-content: center;
         gap: 5px;
     }
 
     .nav-btn {
-        width: auto; /* Кнопки не на всю ширину */
+        width: auto; 
         font-size: 13px;
         padding: 8px 12px;
         margin-bottom: 0;
@@ -251,9 +248,8 @@ body.dark-mode div:not(.header-pill) {
         padding: 25px 15px;
     }
 
-    /* Сетка информации в профиле */
     .info-grid {
-        grid-template-columns: 1fr; /* Поля ввода одно под другим */
+        grid-template-columns: 1fr; 
         gap: 15px;
     }
 
@@ -261,10 +257,8 @@ body.dark-mode div:not(.header-pill) {
         font-size: 22px;
         text-align: center;
     }
-
-    /* Карточки бронирований */
     .booking-card {
-        flex-direction: column; /* Текст и цена друг под другом */
+        flex-direction: column; 
         text-align: center;
         gap: 15px;
     }
@@ -273,16 +267,14 @@ body.dark-mode div:not(.header-pill) {
         font-size: 18px;
     }
 }
-
-/* Уточнение для очень маленьких экранов (телефоны) */
 @media (max-width: 480px) {
     .profile-nav {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Навигация по 2 кнопки в ряд */
+        grid-template-columns: 1fr 1fr; 
     }
     
     .logout-btn {
-        grid-column: span 2; /* Кнопка выхода на всю ширину */
+        grid-column: span 2; 
         color: #ff5f56 !important;
     }
 }
@@ -362,7 +354,6 @@ body.dark-mode div:not(.header-pill) {
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    // 1. Глобальные функции (чтобы кнопки их видели всегда)
     function showTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -383,8 +374,6 @@ body.dark-mode div:not(.header-pill) {
             display.style.display = 'none';
             form.style.display = 'grid';
             btn.innerText = 'Cancel';
-            
-            // Предзаполняем инпуты из текущих данных на странице
             const user = JSON.parse(localStorage.getItem('user')) || {};
             if(document.getElementById('edit-fname')) document.getElementById('edit-fname').value = user.name || '';
             if(document.getElementById('edit-email')) document.getElementById('edit-email').value = user.email || '';
@@ -408,24 +397,18 @@ body.dark-mode div:not(.header-pill) {
     };
 
     localStorage.setItem('user', JSON.stringify(userData));
-    
-    // Обновляем текст на странице вручную
     document.getElementById('p-name').innerText = newName;
     document.getElementById('p-email').innerText = newEmail;
     document.getElementById('p-phone').innerText = newPhone || 'Not provided';
     document.getElementById('side-name').innerText = newName;
 
-    alert('Profile updated!'); // Теперь это вызовет оранжевое окно
-    toggleEditProfile(); // Закроет форму редактирования
+    alert('Profile updated!'); 
+    toggleEditProfile(); 
 }
     function logout() {
         localStorage.removeItem('isLoggedIn');
-        // myTrips лучше оставить, чтобы при новом входе они были, 
-        // но если хочешь полную очистку — используй localStorage.clear();
         window.location.href = 'index.html';
     }
-
-    // 2. Инициализация при загрузке
     document.addEventListener('DOMContentLoaded', () => {
         const user = JSON.parse(localStorage.getItem('user'));
         const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -434,15 +417,11 @@ body.dark-mode div:not(.header-pill) {
             window.location.replace('index.html');
             return;
         }
-
-        // Заполняем текстовые поля (проверяем наличие ID)
         if(document.getElementById('side-name')) document.getElementById('side-name').innerText = user.name;
         if(document.getElementById('p-name')) document.getElementById('p-name').innerText = user.name;
         if(document.getElementById('p-email')) document.getElementById('p-email').innerText = user.email;
         if(document.getElementById('p-phone')) document.getElementById('p-phone').innerText = user.phone || 'Not provided';
         if(document.getElementById('user-initials')) document.getElementById('user-initials').innerText = user.name[0].toUpperCase();
-
-        // Рендерим туры (только если есть данные)
         const myTrips = JSON.parse(localStorage.getItem('myTrips')) || [];
         const bookingsList = document.getElementById('bookings-list');
 
@@ -473,7 +452,7 @@ body.dark-mode div:not(.header-pill) {
         
         AOS.init({ duration: 800, once: true });
     });
-let currentAction = ""; // Глобальная переменная для отслеживания действия
+let currentAction = ""; 
 
 function changePassword() {
     currentAction = "password";
@@ -504,7 +483,7 @@ function handleModalConfirm() {
     const msg = document.getElementById('modal-message');
 
     if (currentAction === "alert") {
-        closeModal(); // Если это просто алерт, просто закрываем
+        closeModal(); 
     } 
     else if (currentAction === "password") {
         const newPass = input.value.trim();
@@ -528,9 +507,8 @@ function handleModalConfirm() {
         setTimeout(() => { window.location.href = 'index.html'; }, 2000);
     }
 }
-// ПЕРЕХВАТ АЛЕРТОВ (Ловит все alert и отправляет в нашу модалку)
 window.alert = function(message) {
-    currentAction = "alert"; // Ставим статус обычного уведомления
+    currentAction = "alert"; 
     const modal = document.getElementById('custom-alert');
     const input = document.getElementById('modal-input');
     const confirmBtn = document.getElementById('btn-modal-confirm');
@@ -540,10 +518,10 @@ window.alert = function(message) {
     document.getElementById('modal-message').innerText = message;
     document.getElementById('modal-message').style.color = "white";
 
-    input.style.display = "none";     // Прячем ввод
-    cancelBtn.style.display = "none"; // Прячем Cancel
+    input.style.display = "none";     
+    cancelBtn.style.display = "none"; 
     
-    confirmBtn.innerText = "OK";      // Меняем текст на OK
+    confirmBtn.innerText = "OK";      
     confirmBtn.style.display = "block";
     
     modal.style.display = "flex";
@@ -552,7 +530,6 @@ window.alert = function(message) {
 function closeModal() {
     document.getElementById('custom-alert').style.display = 'none';
     document.getElementById('modal-input').style.display = 'none';
-    // Возвращаем кнопки в исходное состояние
     document.getElementById('btn-modal-confirm').innerText = "Confirm";
     document.getElementById('btn-modal-confirm').style.display = "block";
     document.getElementById('btn-modal-cancel').style.display = "block";
@@ -560,26 +537,20 @@ function closeModal() {
 }
 const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
-
-    // 1. ПРОВЕРКА: Если пользователь уже выбирал темную тему раньше — включаем её сразу
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
         if (themeBtn) themeBtn.innerText = '☀️';
     }
-
-    // 2. КЛИК: Переключение и сохранение
     if (themeBtn) {
         themeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             
             body.classList.toggle('dark-mode');
-
-            // Проверяем, что в итоге получилось, и записываем в память
             if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark'); // Запомнили: ночь
+                localStorage.setItem('theme', 'dark'); 
                 themeBtn.innerText = '☀️';
             } else {
-                localStorage.setItem('theme', 'light'); // Запомнили: день
+                localStorage.setItem('theme', 'light'); 
                 themeBtn.innerText = '🌙';
             }
         });
